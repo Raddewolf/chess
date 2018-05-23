@@ -1,6 +1,8 @@
 CC = gcc
 
-FLAG = -Wall -Werror
+FLAG = -Wall -Werror -std=c99
+
+.PHONY: clean
 
 default: bin/chess
 
