@@ -8,4 +8,4 @@
 # k9-q9            
 # 42-69 
 #           
-# [![Build Status](https://travis-ci.org/UsagiLoliChan/chess.svg?branch=master)](https://travis-ci.org/UsagiLoliChan/chess)
+# [![Build Status](https://travis-ci.org/Raddewolf/chess.svg?branch=master)](https://travis-ci.org/Raddewolf/chess)
