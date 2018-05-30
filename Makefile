@@ -34,6 +34,6 @@ bin:
 
 clean:
 		rm -rf build bin
-		
+
 open:
 		./bin/chess-test
