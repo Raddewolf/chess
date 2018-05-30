@@ -21,8 +21,8 @@ void open_files()
 
 void close_files()
 {
-    fclose(in);
-    fclose(out);
+	fclose(in);
+	fclose(out);
 }
 
 void exit_program(char *msg, int code)
@@ -105,3 +105,4 @@ log_t *create_log(log_t *st)
 
 	return st;
 }
+

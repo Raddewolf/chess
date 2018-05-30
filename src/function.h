@@ -1,11 +1,13 @@
 #ifndef _FUNCTION_H_
 #define _FUNCTION_H_
 
-			  //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
-typedef struct log {      // Listnode created to do more than one turn
-	char line[8];     // Line with data of turn
-	struct log *next; //
-} log_t;                  //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
+#include <stdio.h>
+
+                             //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
+typedef struct log {         // Listnode created to do more than one turn
+	char line[8];        // Line with data of turn
+	struct log *next;    //
+} log_t;                     //-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
 
 extern FILE *in, *out;
 extern log_t *log_head;

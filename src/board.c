@@ -3,6 +3,7 @@
 #include "board.h"
 
 #include <stdlib.h>
+#include <math.h>
 
 char **board;
 
@@ -103,18 +104,95 @@ bool check_syntax(char *str)
 		(in_bounds(str[4], '1', '8')));
 }
 
-void make_move(log_t *st)
+int make_move(log_t *st)
 {
+	bool allow;
 	int h1 = (int)(st->line[0] - 'a');
 	int h2 = (int)(st->line[3] - 'a');
 	int v1 = (int)(st->line[1] - '1');
 	int v2 = (int)(st->line[4] - '1');
+
+	allow = check(h1, v1, h2, v2);
+
+	if (allow == false) { return 0; }
 
 	if (board[h2][v2] == ' ')
 	{
 		board[h2][v2] = board[h1][v1];
 		board[h1][v1] = ' ';
 	}
-	else exit_program((char *)"Don't allow turn\n", 6);
+	else return 0;
+
+	return 1;
+}
+
+int make_kill(log_t *st)
+{
+	bool allow;
+	int h1 = (int)(st->line[0] - 'a');
+	int h2 = (int)(st->line[3] - 'a');
+	int v1 = (int)(st->line[1] - '1');
+	int v2 = (int)(st->line[4] - '1');
+
+	allow = check(h1, v1, h2, v2);
+
+	if (allow == false) { exit_program((char *)"Wrong turn\n", 8); }
+
+		if (board[h2][v2] != ' ')
+	{
+		board[h2][v2] = board[h1][v1];
+		board[h1][v1] = ' ';
+	}
+	else return 0;
+
+	return 1;
+}
+
+void turn()
+{
+	log_t *turn;
+
+	turn = log_head;
+
+	while (turn != NULL)
+	{
+		if (turn->line[2] == '-')
+		{
+			make_move(turn);
+		}
+		else if (turn->line[2] == 'x')
+		{
+			make_kill(turn);
+		}
+
+		turn = turn->next;
+	}
+}
+
+bool check(int h1, int v1, int h2, int v2)
+{
+	if ((board[h1][v1] == 'p') || (board[h1][v1] == 'P'))
+	{
+		int difh = fabs(h2 - h1);
+		int difv = fabs(v2 - v1);
+
+		if (difh != 0) { return false; }
+
+		if ((v2 > v1) && (board[h1][v1] == 'p')) { return false; }
+		if ((v2 < v1) && (board[h1][v1] == 'P')) { return false; }
+
+		if ((board[h1][v1] == 'P') && (v1 == 1) && (difv <= 2)) { return true; }
+		else if ((board[h1][v1] == 'p') && (v1 == 6) && (difv <= 2)) { return true; }
+
+
+		if ((board[h1][v1] == 'P') && (v1 != 1) && (difv == 1)) { return true; }
+		else return false;
+
+
+		if ((board[h1][v1] == 'p') && (v1 != 6) && (difv == 1)) { return true; }
+		else return false;
+	}
+
+	return true;
 }
 
